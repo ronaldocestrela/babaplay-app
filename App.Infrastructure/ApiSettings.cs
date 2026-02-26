@@ -7,7 +7,7 @@ public class ApiSettings
     public UserEndpoints? UserEndpoints { get; set; }
     public TenantEndpoints? TenantEndpoints { get; set; }
     public RoleEndpoints? RoleEndpoints { get; set; }
-    public SchoolEndpoints? SchoolEndpoints { get; set; }
+    public AssociationEndpoints? AssociationEndpoints { get; set; }
 }
 
 public class TokenEndpoints
@@ -76,7 +76,7 @@ public class RoleEndpoints
         => $"{Delete}{roleId}";
 }
 
-public class SchoolEndpoints
+public class AssociationEndpoints
 {
     public string? Create { get; set; }
     public string? Update { get; set; }
@@ -85,10 +85,10 @@ public class SchoolEndpoints
     public string? ByName { get; set; }
     public string? All { get; set; }
 
-    public string GetById(string schoolId)
-        => $"{ById}{schoolId}";
-    public string GetByName(string schoolName)
-        => $"{ByName}{schoolName}";
-    public string GetDelete(string schoolId)
-        => $"{Delete}{schoolId}";
+    public string GetById(string associationId)
+        => $"{ById}{associationId}";
+    public string GetByName(string associationName)
+        => $"{ByName}{associationName}";
+    public string GetDelete(string associationId)
+        => $"{Delete}{associationId}";
 }
