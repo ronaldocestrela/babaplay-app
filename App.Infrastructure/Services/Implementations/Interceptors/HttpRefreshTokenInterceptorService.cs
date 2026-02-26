@@ -28,7 +28,7 @@ public class HttpRefreshTokenInterceptorService : IHttpRefreshTokenInterceptorSe
 
     public async Task InterceptBeforeHttpRequestAsync(object sender, HttpClientInterceptorEventArgs eventArgs)
     {
-        var absPath = eventArgs.Request.RequestUri.AbsolutePath;
+        var absPath = eventArgs.Request.RequestUri!.AbsolutePath;
 
         if (!absPath.Contains("token"))
         {

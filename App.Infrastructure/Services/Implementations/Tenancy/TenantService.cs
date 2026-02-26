@@ -14,37 +14,37 @@ public class TenantService(HttpClient httpClient, ApiSettings apiSettings) : ITe
 
     public async Task<IResponseWrapper<string>> ActivateAsync(string tenantId)
     {
-        var response = await _httpClient.PutAsJsonAsync(_apiSettings.TenantEndpoints.FullActivate(tenantId), tenantId);
+        var response = await _httpClient.PutAsJsonAsync(_apiSettings.TenantEndpoints!.FullActivate(tenantId), tenantId);
         return await response.WrapToResponse<string>();
     }
 
     public async Task<IResponseWrapper<string>> CreateAsync(CreateTenantRequest request)
     {
-        var response = await _httpClient.PostAsJsonAsync(_apiSettings.TenantEndpoints.Create, request);
+        var response = await _httpClient.PostAsJsonAsync(_apiSettings.TenantEndpoints!.Create, request);
         return await response.WrapToResponse<string>();
     }
 
     public async Task<IResponseWrapper<string>> DeActivateAsync(string tenantId)
     {
-        var response = await _httpClient.PutAsJsonAsync(_apiSettings.TenantEndpoints.FullDeActivate(tenantId), tenantId);
+        var response = await _httpClient.PutAsJsonAsync(_apiSettings.TenantEndpoints!.FullDeActivate(tenantId), tenantId);
         return await response.WrapToResponse<string>();
     }
 
     public async Task<IResponseWrapper<List<TenantResponse>>> GetAllAsync()
     {
-        var response = await _httpClient.GetAsync(_apiSettings.TenantEndpoints.All);
+        var response = await _httpClient.GetAsync(_apiSettings.TenantEndpoints!.All);
         return await response.WrapToResponse<List<TenantResponse>>();
     }
 
     public async Task<IResponseWrapper<TenantResponse>> GetByIdAsync(string tenantId)
     {
-        var response = await _httpClient.GetAsync(_apiSettings.TenantEndpoints.GetById(tenantId));
+        var response = await _httpClient.GetAsync(_apiSettings.TenantEndpoints!.GetById(tenantId));
         return await response.WrapToResponse<TenantResponse>();
     }
 
     public async Task<IResponseWrapper<string>> UpgradeSubscriptionAsync(UpdateTenantSubscriptionRequest request)
     {
-        var response = await _httpClient.PutAsJsonAsync(_apiSettings.TenantEndpoints.Upgrade, request);
+        var response = await _httpClient.PutAsJsonAsync(_apiSettings.TenantEndpoints!.Upgrade, request);
         return await response.WrapToResponse<string>();
     }
 }

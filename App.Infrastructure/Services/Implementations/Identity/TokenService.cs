@@ -26,7 +26,7 @@ public class TokenService(HttpClient httpClient,
     {
         using var httpRequest = new HttpRequestMessage(
             HttpMethod.Post,
-            _apiSettings.TokenEndpoints.Login)
+            _apiSettings.TokenEndpoints!.Login)
         {
             Content = JsonContent.Create(request)
         };
@@ -38,7 +38,7 @@ public class TokenService(HttpClient httpClient,
 
         if (result.IsSuccessful)
         {
-            var token = result.Data.Jwt;
+            var token = result.Data!.Jwt;
             var refreshToken = result.Data.RefreshToken;
 
             await _localStorageService.SetItemAsync(StorageConstants.AuthToken, token);
@@ -70,7 +70,7 @@ public class TokenService(HttpClient httpClient,
         var currentJwt = await _localStorageService.GetItemAsync<string>(StorageConstants.AuthToken);
         var currentRefreshToken = await _localStorageService.GetItemAsync<string>(StorageConstants.RefreshToken);
 
-        var response = await _httpClient.PostAsJsonAsync(_apiSettings.TokenEndpoints.RefreshToken, new RefreshTokenRequest
+        var response = await _httpClient.PostAsJsonAsync(_apiSettings.TokenEndpoints!.RefreshToken, new RefreshTokenRequest
         {
             CurrentJwt = currentJwt,
             CurrentRefreshToken = currentRefreshToken
@@ -80,14 +80,14 @@ public class TokenService(HttpClient httpClient,
 
         if (result.IsSuccessful)
         {
-            currentJwt = result.Data.Jwt;
+            currentJwt = result.Data!.Jwt;
             currentRefreshToken = result.Data.RefreshToken;
 
             await _localStorageService.SetItemAsync(StorageConstants.AuthToken, currentJwt);
             await _localStorageService.SetItemAsync(StorageConstants.RefreshToken, currentRefreshToken);
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", currentJwt);
-            return currentJwt;
+            return currentJwt!;
         }
         else
         {

@@ -16,7 +16,7 @@ public static class ResponseWrapperExtensions
                 ReferenceHandler = ReferenceHandler.Preserve
             });
 
-            return responseObject;
+            return responseObject!;
         }
 
         public static async Task<IResponseWrapper> WrapToResponse(this HttpResponseMessage responseMessage)
@@ -28,6 +28,6 @@ public static class ResponseWrapperExtensions
                 ReferenceHandler = ReferenceHandler.Preserve
             });
 
-            return responseObject;
+            return responseObject!;
         }
 }

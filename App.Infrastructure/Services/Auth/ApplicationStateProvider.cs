@@ -8,17 +8,11 @@ using System.Text.Json;
 
 namespace App.Infrastructure.Services.Auth;
 
-public class ApplicationStateProvider : AuthenticationStateProvider
+public class ApplicationStateProvider(ILocalStorageService localStorageService, HttpClient httpClient) : AuthenticationStateProvider
 {
-    private readonly ILocalStorageService _localStorageService;
-    private readonly HttpClient _httpClient;
-    public ClaimsPrincipal AuthenticationStateUser { get; set; }
-
-    public ApplicationStateProvider(ILocalStorageService localStorageService, HttpClient httpClient)
-    {
-        _localStorageService = localStorageService;
-        _httpClient = httpClient;
-    }
+    private readonly ILocalStorageService _localStorageService = localStorageService;
+    private readonly HttpClient _httpClient = httpClient;
+    public ClaimsPrincipal? AuthenticationStateUser { get; set; }
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
@@ -71,14 +65,14 @@ public class ApplicationStateProvider : AuthenticationStateProvider
 
             if (roles != null)
             {
-                if (roles.ToString().Trim().StartsWith('['))
+                if (roles.ToString()!.Trim().StartsWith('['))
                 {
-                    var parsedRoles = JsonSerializer.Deserialize<string[]>(roles.ToString());
-                    claims.AddRange(parsedRoles.Select(roleName => new Claim(ClaimTypes.Role, roleName)));
+                    var parsedRoles = JsonSerializer.Deserialize<string[]>(roles.ToString()!);
+                    claims.AddRange(parsedRoles!.Select(roleName => new Claim(ClaimTypes.Role, roleName)));
                 }
                 else
                 {
-                    claims.Add(new Claim(ClaimTypes.Role, roles.ToString()));
+                    claims.Add(new Claim(ClaimTypes.Role, roles.ToString()!));
                 }
 
                 keyValuePairs.Remove(ClaimTypes.Role);
@@ -88,19 +82,19 @@ public class ApplicationStateProvider : AuthenticationStateProvider
 
             if (permissions != null)
             {
-                if (permissions.ToString().Trim().StartsWith('['))
+                if (permissions.ToString()!.Trim().StartsWith('['))
                 {
-                    var parsedPermissions = JsonSerializer.Deserialize<string[]>(permissions.ToString());
-                    claims.AddRange(parsedPermissions.Select(permission => new Claim(ClaimConstants.Permission, permission)));
+                    var parsedPermissions = JsonSerializer.Deserialize<string[]>(permissions.ToString()!);
+                    claims.AddRange(parsedPermissions!.Select(permission => new Claim(ClaimConstants.Permission, permission)));
                 }
                 else
                 {
-                    claims.Add(new Claim(ClaimConstants.Permission, permissions.ToString()));
+                    claims.Add(new Claim(ClaimConstants.Permission, permissions.ToString()!));
                 }
                 keyValuePairs.Remove(ClaimConstants.Permission);
             }
 
-            claims.AddRange(keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString())));
+            claims.AddRange(keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString()!)));
         }
         return claims;
     }

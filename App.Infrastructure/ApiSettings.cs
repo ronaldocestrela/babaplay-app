@@ -2,7 +2,7 @@
 
 public class ApiSettings
 {
-    public required string BaseApiUri { get; set; }
+    public required string BaseApiUrl { get; set; }
     public TokenEndpoints? TokenEndpoints { get; set; }
     public UserEndpoints? UserEndpoints { get; set; }
     public TenantEndpoints? TenantEndpoints { get; set; }

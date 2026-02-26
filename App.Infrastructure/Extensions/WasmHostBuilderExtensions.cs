@@ -50,7 +50,7 @@ public static class WasmHostBuilderExtensions
                 .CreateClient(_clientName).EnableIntercept(sp))
             .AddHttpClient(_clientName, client =>
             {
-                client.BaseAddress = new Uri(builder.Configuration.GetSection("ApiSettings:BaseApiUrl").Get<string>());
+                client.BaseAddress = new Uri(builder.Configuration.GetSection("ApiSettings:BaseApiUrl").Get<string>()!);
             })
             .AddHttpMessageHandler<AuthenticationHeaderHandler>();
 
