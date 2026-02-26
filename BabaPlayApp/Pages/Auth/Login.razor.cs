@@ -59,7 +59,7 @@ namespace BabaPlayApp.Pages.Auth
         private void FillRootAdminCredentialsDuringDevelopment()
         {
             _loginRequest.Tenant = "root";
-            _loginRequest.Username = "admin.root@abcassociation.com";
+            _loginRequest.Username = "admin.root@babaplay.com.br";
             _loginRequest.Password = "P@ssw0rd@123";
         }
     }
