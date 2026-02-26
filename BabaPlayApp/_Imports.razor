@@ -8,3 +8,29 @@
 @using Microsoft.JSInterop
 @using BabaPlayApp
 @using BabaPlayApp.Layout
+@using MudBlazor
+
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Authorization
+@using BabaPlayApp.Pages.Auth
+@using global::App.Infrastructure.Services.Auth
+@using global::App.Infrastructure.Services.Identity
+@using BabaPlayApp.Components
+@using global::App.Infrastructure.Services.Interceptors
+@using global::App.Infrastructure.Services.Associations
+@using global::App.Infrastructure.Services.Tenancy
+
+
+@attribute [Authorize]
+
+@inject ApplicationStateProvider _applicationStateProvider
+@inject NavigationManager _navigation
+@inject ITokenService _tokenService
+@inject IUserService _userService
+@inject ITenantService _tenantService
+@inject IRoleService _roleService
+@inject IAssociationService _associationService
+@inject IHttpRefreshTokenInterceptorService _interceptor 
+
+@inject ISnackbar _snackbar
+@inject IDialogService _dialogService;

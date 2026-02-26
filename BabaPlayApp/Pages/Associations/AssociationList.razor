@@ -1,0 +1,52 @@
+﻿@page "/associations"
+
+@using BabaPlayShared.Library.Constants
+
+@attribute [ShouldHavePermission(AssociationAction.Read, AssociationFeature.Associations)]
+
+<Header OnReturn="Cancel" Title="Associations" Description="Manage Associations" />
+
+<MudTable Items="@_associationList"
+          Loading="_isLoading"
+          LoadingProgressColor="Color.Info"
+          Elevation="25">
+    <ToolBarContent>
+        @if (_canCreateAssociations)
+        {
+            <MudFab StartIcon="@Icons.Material.Filled.Add"
+                    OnClick="OnBoardNewAssociationAsync"
+                    Size="Size.Small"
+                    IconSize="Size.Medium"
+                    Class="mr-2" />
+        }
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Established Date</MudTh>
+        <MudTh Style="text-align:right">Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name"> @context.Name</MudTd>
+        <MudTd DataLabel="Established Date"> @context.EstablishedDate?.ToString("dd MMM yyyy", System.Globalization.CultureInfo.InvariantCulture)</MudTd>
+        <MudTd Style="text-align:right" DataLabel="Actions">
+            <MudMenu Icon="@Icons.Material.Filled.MoreVert"
+                     Size="Size.Small"
+                     Color="Color.Secondary"
+                     TransformOrigin="Origin.BottomLeft"
+                     AnchorOrigin="Origin.BottomLeft">
+                @if (_canUpdateAssociations)
+                {
+                    <MudMenuItem>Update</MudMenuItem>
+                }
+                @if (_canDeleteAssociations)
+                {
+                    <MudMenuItem>Delete</MudMenuItem>
+                }
+
+            </MudMenu>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager RowsPerPageString="RowsPerPageString" InfoFormat="InfoFormat" />
+    </PagerContent>
+</MudTable>
