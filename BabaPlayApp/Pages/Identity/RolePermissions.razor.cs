@@ -48,7 +48,7 @@ namespace BabaPlayApp.Pages.Identity
             var result = await _roleService.GetRoleWithPermissionsAsync(RoleId);
             if (result.IsSuccessful)
             {
-                _roleClaimResponse = result.Data;
+                _roleClaimResponse = result.Data!;
 
                 _title = "Permission management";
                 _description = string.Format("Manage {0}'s Permissions", _roleClaimResponse.Name);
@@ -69,7 +69,7 @@ namespace BabaPlayApp.Pages.Identity
                             IsBasic: p.IsBasic,
                             IsRoot: p.IsRoot);
 
-                        permission.IsSelected = _roleClaimResponse.Permissions.Contains(permission.Name);
+                        permission.IsSelected = _roleClaimResponse.Permissions!.Contains(permission.Name);
                         return permission;
                     }).ToList());
             }

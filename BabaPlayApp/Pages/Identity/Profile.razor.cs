@@ -8,13 +8,13 @@ namespace BabaPlayApp.Pages.Identity
     public partial class Profile
     {
         private UpdateUserRequest UpdateUserRequest { get; set; } = new();
-        private string Firstname { get; set; }
-        private string Lastname { get; set; }
+        private string? Firstname { get; set; }
+        private string? Lastname { get; set; }
         private char FirstLetterOfFirstname { get; set; }
-        private string Email { get; set; }
+        private string? Email { get; set; }
 
-        public string UserId { get; set; }
-        private MudForm _form;
+        public string? UserId { get; set; }
+        private MudForm? _form;
         protected override async Task OnInitializedAsync()
         {
             await SetCurrentUserDetails();

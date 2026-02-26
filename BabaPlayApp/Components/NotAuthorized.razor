@@ -24,7 +24,7 @@ Style="min-height: 70vh;">
 </MudContainer>
 
 @code{
-    [Parameter] public string Message { get; set; }
+    [Parameter] public string? Message { get; set; }
 
     private void GoHome() => _navigation.NavigateTo("/");
 }

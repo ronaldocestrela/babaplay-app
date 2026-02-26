@@ -44,7 +44,7 @@ Elevation="25">
             TransformOrigin="Origin.BottomLeft" 
             AnchorOrigin="Origin.BottomLeft">
                 <MudMenuItem OnClick="@(() => UpgradeSubscriptionAsync(context))">Upgrade</MudMenuItem>
-                @if ((bool)context.IsActive)
+                @if ((bool)context.IsActive!)
                 {
                     <MudMenuItem OnClick="@(() => ActivateOrDeactivativeAsync(context))">Deactivate</MudMenuItem>
                 }

@@ -5,13 +5,13 @@ namespace BabaPlayApp.Components
 {
     public partial class Logout
     {
-        [CascadingParameter] IMudDialogInstance MudDialog { get; set; }
+        [CascadingParameter] IMudDialogInstance? MudDialog { get; set; }
         [Parameter]
-        public string Title { get; set; }
+        public string? Title { get; set; }
         [Parameter]
-        public string ConfirmationMessage { get; set; }
+        public string? ConfirmationMessage { get; set; }
         [Parameter]
-        public string ButtonText { get; set; }
+        public string? ButtonText { get; set; }
         [Parameter]
         public Color Color { get; set; }
 
@@ -21,7 +21,7 @@ namespace BabaPlayApp.Components
             if (result.IsSuccessful)
             {
                 _navigation.NavigateTo("/");
-                MudDialog.Close(DialogResult.Ok(true));
+                MudDialog?.Close(DialogResult.Ok(true));
             }
         }
 

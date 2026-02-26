@@ -10,7 +10,7 @@ namespace BabaPlayApp.Pages.Auth
         private InputType _inputType = InputType.Password;
         private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
         private bool _isPasswordVisisble;
-        private MudForm _form = default;
+        private MudForm? _form = default;
 
         protected override async Task OnInitializedAsync()
         {
@@ -25,7 +25,7 @@ namespace BabaPlayApp.Pages.Auth
         {
             // Validation
             var result = await _tokenService
-                .LoginAsync(tenant: _loginRequest.Tenant, request: _loginRequest);
+                .LoginAsync(tenant: _loginRequest.Tenant!, request: _loginRequest);
 
             if (result.IsSuccessful)
             {

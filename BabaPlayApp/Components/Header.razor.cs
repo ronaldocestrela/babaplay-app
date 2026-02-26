@@ -5,9 +5,9 @@ namespace BabaPlayApp.Components
     public partial class Header
     {
         [Parameter]
-        public string Title { get; set; }
+        public string? Title { get; set; }
         [Parameter]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [Parameter]
         public EventCallback OnReturn { get; set; }
 

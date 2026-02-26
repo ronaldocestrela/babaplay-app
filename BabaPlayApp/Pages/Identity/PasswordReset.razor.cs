@@ -16,7 +16,7 @@ namespace BabaPlayApp.Pages.Identity
         private InputType _newPasswordInput = InputType.Password;
         private string _newPasswordInputIcon = Icons.Material.Filled.VisibilityOff;
 
-        private MudForm _form;
+        private MudForm? _form;
 
         protected override async Task OnInitializedAsync()
         {

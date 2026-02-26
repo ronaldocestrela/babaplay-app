@@ -7,9 +7,9 @@ namespace BabaPlayApp.Pages.Associations
 {
     public partial class CreateAssociation
     {
-        [CascadingParameter] private IMudDialogInstance _dialogInstance { get; set; }
+        [CascadingParameter] private IMudDialogInstance? _dialogInstance { get; set; }
         private CreateAssociationRequest CreateAssociationRequest { get; set; } = new();
-        private MudForm _form;
+        private MudForm? _form;
         private MudDatePicker _datePicker = default!;
         private CreateAssociationRequestValidator _validator = new();
 
@@ -29,7 +29,7 @@ namespace BabaPlayApp.Pages.Associations
 
         private async Task SubmitAsync()
         {
-            await _form.Validate();
+            await _form!.Validate();
             if (_form.IsValid)
             {
                 await SaveAssociationAsync();
@@ -42,7 +42,7 @@ namespace BabaPlayApp.Pages.Associations
             if (result.IsSuccessful)
             {
                 _snackbar.Add(result.Messages[0], Severity.Success);
-                _dialogInstance.Close(DialogResult.Ok(true));
+                _dialogInstance!.Close(DialogResult.Ok(true));
             }
             else
             {
@@ -54,7 +54,7 @@ namespace BabaPlayApp.Pages.Associations
         }
         private void CancelDialog()
         {
-            _dialogInstance.Close();
+            _dialogInstance!.Close();
         }
     }
 }

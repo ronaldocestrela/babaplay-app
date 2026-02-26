@@ -43,7 +43,7 @@ namespace BabaPlayApp.Pages.Identity
             var result = await _userService.GetByIdAsync(UserId);
             if (result.IsSuccessful)
             {
-                _userResponse = result.Data;
+                _userResponse = result.Data!;
                 _title = $"{_userResponse.FirstName} {_userResponse.LastName}";
                 _description = $"Manage {_userResponse.FirstName} {_userResponse.LastName}'s roles.";
             }
@@ -61,7 +61,7 @@ namespace BabaPlayApp.Pages.Identity
             var result = await _userService.GetUserRolesAsync(UserId);
             if (result.IsSuccessful)
             {
-                _userRoleList = result.Data;
+                _userRoleList = result.Data!;
             }
             else
             {

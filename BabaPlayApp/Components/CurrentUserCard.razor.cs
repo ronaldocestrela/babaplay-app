@@ -4,10 +4,10 @@ namespace BabaPlayApp.Components
 {
     public partial class CurrentUserCard
     {
-        private string Firstname { get; set; }
-        private string Lastname { get; set; }
+        private string? Firstname { get; set; }
+        private string? Lastname { get; set; }
         private char FirstLetterOfFirstname { get; set; }
-        private string Email { get; set; }
+        private string? Email { get; set; }
         private bool _isLoading = true;
 
         protected override async Task OnInitializedAsync()

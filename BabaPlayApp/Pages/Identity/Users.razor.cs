@@ -20,8 +20,8 @@ namespace BabaPlayApp.Pages.Identity
         private List<UserResponse> _userList = [];
 
         private bool _isLoading = true;
-        private bool _canCreateUsers;
-        private bool _canViewRoles;
+        // private bool _canCreateUsers;
+        // private bool _canViewRoles;
 
         protected override async Task OnInitializedAsync()
         {
@@ -34,7 +34,7 @@ namespace BabaPlayApp.Pages.Identity
             var result = await _userService.GetUsersAsync();
             if (result.IsSuccessful)
             {
-                _userList = result.Data;
+                _userList = result.Data!;
             }
             else
             {
@@ -58,7 +58,7 @@ namespace BabaPlayApp.Pages.Identity
             var dialog = await _dialogService.ShowAsync<RegisterUser>(title: null, options: options);
             var result = await dialog.Result;
 
-            if (!result.Canceled)
+            if (!result!.Canceled)
             {
                 await LoadUsers();
             }
@@ -66,7 +66,7 @@ namespace BabaPlayApp.Pages.Identity
 
         private async Task ActivateOrDeactivativeAsync(UserResponse user)
         {
-            if ((bool)user.IsActive)
+            if ((bool)user.IsActive!)
             {
                 // Deactivate
                 var parameters = new DialogParameters
@@ -88,7 +88,7 @@ namespace BabaPlayApp.Pages.Identity
 
                 var dialog = await _dialogService.ShowAsync<Confirmation>(title: null, parameters, options);
                 var result = await dialog.Result;
-                if (!result.Canceled)
+                if (!result!.Canceled)
                 {
                     var response = await _userService.ChangeUserStatusAsync(new ChangeUserStatusRequest
                     {
@@ -133,7 +133,7 @@ namespace BabaPlayApp.Pages.Identity
 
                 var dialog = await _dialogService.ShowAsync<Confirmation>(title: null, parameters, options);
                 var result = await dialog.Result;
-                if (!result.Canceled)
+                if (!result!.Canceled)
                 {
                     var response = await _userService.ChangeUserStatusAsync(new ChangeUserStatusRequest
                     {

@@ -6,33 +6,33 @@ namespace BabaPlayApp.Pages.Tenancy
 {
     public partial class UpgradeSubscription
     {
-        [CascadingParameter] private IMudDialogInstance _dialogInstance { get; set; }
+        [CascadingParameter] private IMudDialogInstance? _dialogInstance { get; set; }
         [Parameter]
-        public UpdateTenantSubscriptionRequest SubscriptionRequest { get; set; }
+        public UpdateTenantSubscriptionRequest? SubscriptionRequest { get; set; }
 
-        private MudForm _form;
+        private MudForm? _form;
         private DateTime? NewExpiryDatePicker
         {
-            get => SubscriptionRequest.NewExpiryDate == default
+            get => SubscriptionRequest?.NewExpiryDate == default
                 ? null
-                : SubscriptionRequest.NewExpiryDate;
+                : SubscriptionRequest?.NewExpiryDate;
             set
             {
                 if (value.HasValue)
                 {
-                    SubscriptionRequest.NewExpiryDate = value.Value;
+                    SubscriptionRequest!.NewExpiryDate = value.Value;
                 }
             }
         }
 
         private async Task UpgradeSubcriptionAsync()
         {
-            var result = await _tenantService.UpgradeSubscriptionAsync(SubscriptionRequest);
+            var result = await _tenantService.UpgradeSubscriptionAsync(SubscriptionRequest!);
 
             if (result.IsSuccessful)
             {
                 _snackbar.Add(result.Messages[0], Severity.Success);
-                _dialogInstance.Close(DialogResult.Ok(true));
+                _dialogInstance!.Close(DialogResult.Ok(true));
             }
             else
             {
@@ -45,7 +45,7 @@ namespace BabaPlayApp.Pages.Tenancy
 
         private void CancelDialog()
         {
-            _dialogInstance.Close();
+            _dialogInstance!.Close();
         }
     }
 }

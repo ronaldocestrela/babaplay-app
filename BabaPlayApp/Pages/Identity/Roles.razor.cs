@@ -43,7 +43,7 @@ namespace BabaPlayApp.Pages.Identity
             var result = await _roleService.GetRolesAsync();
             if (result.IsSuccessful)
             {
-                _roleList = result.Data;
+                _roleList = result.Data!;
             }
             else
             {

@@ -31,7 +31,7 @@ namespace BabaPlayApp.Pages.Tenancy
             if (result.IsSuccessful)
             {
                 _snackbar.Add(result.Messages[0], Severity.Success);
-                _dialogInstance.Close(DialogResult.Ok(true));
+                _dialogInstance?.Close(DialogResult.Ok(true));
             }
             else
             {
@@ -44,7 +44,7 @@ namespace BabaPlayApp.Pages.Tenancy
 
         private void CancelDialog()
         {
-            _dialogInstance.Close();
+            _dialogInstance?.Close();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace BabaPlayApp.Pages.Identity
     public partial class RegisterUser
     {
         private CreateUserRequest CreateUserRequest { get; set; } = new();
-        [CascadingParameter] private IMudDialogInstance _dialogInstance { get; set; }
+        [CascadingParameter] private IMudDialogInstance? _dialogInstance { get; set; }
 
         private InputType _inputType = InputType.Password;
         private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
@@ -17,7 +17,7 @@ namespace BabaPlayApp.Pages.Identity
         private string _passwordConfirmInputIcon = Icons.Material.Filled.VisibilityOff;
         private bool _isPasswordConfirmVisisble;
 
-        private MudForm _form = default;
+        private MudForm? _form = default;
 
         private async Task SubmitUserRegistrationAsync()
         {
@@ -26,7 +26,7 @@ namespace BabaPlayApp.Pages.Identity
             if (result.IsSuccessful)
             {
                 _snackbar.Add(result.Messages[0], Severity.Success);
-                _dialogInstance.Close(DialogResult.Ok(true));
+                _dialogInstance?.Close(DialogResult.Ok(true));
             }
             else
             {
@@ -39,7 +39,7 @@ namespace BabaPlayApp.Pages.Identity
 
         private void CancelDialog()
         {
-            _dialogInstance.Close();
+            _dialogInstance?.Close();
         }
 
         void TogglePasswordVisibility()

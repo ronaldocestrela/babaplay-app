@@ -43,7 +43,7 @@ namespace BabaPlayApp.Pages.Associations
             var result = await _associationService.GetAllAsync();
             if (result.IsSuccessful)
             {
-                _associationList = result.Data;
+                _associationList = result.Data!;
             }
             else
             {
@@ -68,7 +68,7 @@ namespace BabaPlayApp.Pages.Associations
 
             var result = await dialog.Result;
 
-            if (!result.Canceled)
+            if (!result!.Canceled)
             {
                 await LoadAssociationsAsync();
             }

@@ -21,7 +21,7 @@ namespace BabaPlayApp.Pages.Tenancy
             var result = await _tenantService.GetAllAsync();
             if (result.IsSuccessful)
             {
-                TenantList = result.Data;
+                TenantList = result.Data!;
             }
             else
             {
@@ -51,7 +51,7 @@ namespace BabaPlayApp.Pages.Tenancy
 
             var result = await dialog.Result;
 
-            if (!result.Canceled)
+            if (!result!.Canceled)
             {
                 await LoadTenantsAsync();
             }
@@ -84,7 +84,7 @@ namespace BabaPlayApp.Pages.Tenancy
 
             var result = await dialog.Result;
 
-            if (!result.Canceled)
+            if (!result!.Canceled)
             {
                 await LoadTenantsAsync();
             }
@@ -92,7 +92,7 @@ namespace BabaPlayApp.Pages.Tenancy
 
         private async Task ActivateOrDeactivativeAsync(TenantResponse tenant)
         {
-            if ((bool)tenant.IsActive)
+            if ((bool)tenant.IsActive!)
             {
                 // Deactivate
                 var parameters = new DialogParameters
@@ -114,9 +114,9 @@ namespace BabaPlayApp.Pages.Tenancy
 
                 var dialog = await _dialogService.ShowAsync<Confirmation>(title: null, parameters, options);
                 var result = await dialog.Result;
-                if (!result.Canceled)
+                if (!result!.Canceled)
                 {
-                    var response = await _tenantService.DeActivateAsync(tenant.Identifier);
+                    var response = await _tenantService.DeActivateAsync(tenant.Identifier!);
 
                     if (response.IsSuccessful)
                     {
@@ -155,9 +155,9 @@ namespace BabaPlayApp.Pages.Tenancy
 
                 var dialog = await _dialogService.ShowAsync<Confirmation>(title: null, parameters, options);
                 var result = await dialog.Result;
-                if (!result.Canceled)
+                if (!result!.Canceled)
                 {
-                    var response = await _tenantService.ActivateAsync(tenant.Identifier);
+                    var response = await _tenantService.ActivateAsync(tenant.Identifier!);
 
                     if (response.IsSuccessful)
                     {

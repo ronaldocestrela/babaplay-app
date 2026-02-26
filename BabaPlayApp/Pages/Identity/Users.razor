@@ -40,8 +40,8 @@
                      Color="Color.Secondary"
                      TransformOrigin="Origin.BottomLeft"
                      AnchorOrigin="Origin.BottomLeft">
-                <MudMenuItem OnClick="(() => GoToRoles(context.Id))">View Roles</MudMenuItem>
-                @if ((bool)context.IsActive)
+                <MudMenuItem OnClick="(() => GoToRoles(context.Id!))">View Roles</MudMenuItem>
+                @if ((bool)context.IsActive!)
                 {
                     <MudMenuItem OnClick="(() => ActivateOrDeactivativeAsync(context))">Deactivate</MudMenuItem>
                 }
