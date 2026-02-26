@@ -1,0 +1,49 @@
+# Build folders
+/bin/
+/obj/
+/out/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio cache and other files
+.vs/
+*.user
+*.suo
+*.userprefs
+
+# Rider files
+.idea/
+*.sln.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+# Uncomment if necessary
+#*.snupkg
+
+# dotnet watch
+.dotnet-watch
+
+# Logs
+*.log
+
+# NuGet packages folder
+**/packages/*
+
+# Publish output
+publish/
+
+# Visual Studio Code workspace
+.vscode/
+
+# Azure webapp publish folder
+**/appsettings.*.json
+
+# Blazor specific
+wwwroot/_framework/
+wwwroot/[^.]*.json
+
