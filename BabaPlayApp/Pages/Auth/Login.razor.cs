@@ -1,4 +1,5 @@
 ﻿using App.Infrastructure.Models;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace BabaPlayApp.Pages.Auth
@@ -11,6 +12,8 @@ namespace BabaPlayApp.Pages.Auth
         private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
         private bool _isPasswordVisisble;
         private MudForm? _form = default;
+        private string? tenant;
+        [Inject] private NavigationManager _navigationManager { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -23,9 +26,19 @@ namespace BabaPlayApp.Pages.Auth
 
         private async Task SubmitAsync()
         {
+            await _form?.Validate()!;
+            if (_form?.IsValid is not true) return;
+
+            tenant = _navigationManager.Uri.Split("://")[1].Split('.')[0];
+            if (string.IsNullOrEmpty(tenant))
+            {
+                tenant = "root";
+            }
+
+            _loginRequest.Tenant = tenant;
             // Validation
             var result = await _tokenService
-                .LoginAsync(tenant: _loginRequest.Tenant!, request: _loginRequest);
+                .LoginAsync(tenant: tenant, request: _loginRequest);
 
             if (result.IsSuccessful)
             {
@@ -58,7 +71,6 @@ namespace BabaPlayApp.Pages.Auth
         
         private void FillRootAdminCredentialsDuringDevelopment()
         {
-            _loginRequest.Tenant = "root";
             _loginRequest.Username = "admin.root@babaplay.com.br";
             _loginRequest.Password = "P@ssw0rd@123";
         }

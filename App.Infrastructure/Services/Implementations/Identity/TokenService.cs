@@ -54,6 +54,37 @@ public class TokenService(HttpClient httpClient,
             return await ResponseWrapper.FailAsync(messages: result.Messages);
         }
     }
+
+    public async Task<IResponseWrapper> LoginWebAsync(TokenRequest request)
+    {
+        using var httpRequest = new HttpRequestMessage(
+            HttpMethod.Post,
+            _apiSettings.TokenEndpoints!.LoginWeb)
+        {
+            Content = JsonContent.Create(request)
+        };
+
+        var response = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
+        var result = await response.WrapToResponse<TokenResponse>();
+
+        if (result.IsSuccessful)
+        {
+            var token = result.Data!.Jwt;
+            var refreshToken = result.Data.RefreshToken;
+
+            await _localStorageService.SetItemAsync(StorageConstants.AuthToken, token);
+            await _localStorageService.SetItemAsync(StorageConstants.RefreshToken, refreshToken);
+
+            ((ApplicationStateProvider)_authStateProvider).MarkUserAuthenticated();
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return await ResponseWrapper.SuccessAsync();
+        }
+        else
+        {
+            return await ResponseWrapper.FailAsync(messages: result.Messages);
+        }
+    }
     public async Task<IResponseWrapper> LogoutAsync()
     {
         await _localStorageService.RemoveItemAsync(StorageConstants.AuthToken);

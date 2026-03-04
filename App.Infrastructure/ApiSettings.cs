@@ -13,6 +13,7 @@ public class ApiSettings
 public class TokenEndpoints
 {
     public string? Login { get; set; }
+    public string? LoginWeb { get; set; }
     public string? RefreshToken { get; set; }
 }
 
