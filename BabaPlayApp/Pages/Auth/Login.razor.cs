@@ -30,7 +30,7 @@ namespace BabaPlayApp.Pages.Auth
             if (_form?.IsValid is not true) return;
 
             tenant = _navigationManager.Uri.Split("://")[1].Split('.')[0];
-            if (string.IsNullOrEmpty(tenant))
+            if (string.IsNullOrEmpty(tenant) || tenant == "localhost:5145" || tenant == "localhost:5145/")
             {
                 tenant = "root";
             }
